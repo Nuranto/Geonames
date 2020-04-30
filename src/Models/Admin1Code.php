@@ -8,6 +8,8 @@ class Admin1Code extends Model {
 
     protected $table = 'geonames_admin_1_codes';
 
+    protected $primaryKey = 'geonameid';
+    
     /**
      * @var array
      */
