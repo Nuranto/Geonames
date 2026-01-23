@@ -169,8 +169,13 @@ class Admin1Code extends AbstractCommand {
         DB::connection( $this->connectionName )
           ->statement( 'CREATE TABLE ' . self::TABLE_WORKING . ' LIKE ' . self::TABLE . ';' );
 
+        // Windows patch
+        $localFilePath = $this->fixDirectorySeparatorForWindows( $localFilePath );
+
+        $charset = config( "database.connections.{$this->connectionName}.charset", 'utf8mb4' );
+
         $query = "LOAD DATA LOCAL INFILE '" . $localFilePath . "'
-    INTO TABLE " . self::TABLE_WORKING . "
+    INTO TABLE " . self::TABLE_WORKING . " CHARACTER SET '{$charset}'
           ( geonameid,
             country_code,
             admin1_code,

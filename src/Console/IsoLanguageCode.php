@@ -126,8 +126,14 @@ class IsoLanguageCode extends AbstractCommand {
         $this->disableKeys( self::TABLE_WORKING );
 
         // This file includes a header row. That is why I skip the first line with the IGNORE 1 LINES statement.
+
+        // Windows patch
+        $localFilePath = $this->fixDirectorySeparatorForWindows( $localFilePath );
+
+        $charset = config( "database.connections.{$this->connectionName}.charset", 'utf8mb4' );
+
         $query = "LOAD DATA LOCAL INFILE '" . $localFilePath . "'
-    INTO TABLE " . self::TABLE_WORKING . " IGNORE 1 LINES
+    INTO TABLE " . self::TABLE_WORKING . " CHARACTER SET '{$charset}' IGNORE 1 LINES
         (   iso_639_3, 
             iso_639_2,
             iso_639_1, 

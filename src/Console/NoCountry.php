@@ -123,9 +123,13 @@ class NoCountry extends AbstractCommand {
 
         $this->line( "\nAttempting Load Data Infile on " . $localFilePath );
 
+        // Windows patch
+        $localFilePath = $this->fixDirectorySeparatorForWindows( $localFilePath );
+
+        $charset = config( "database.connections.{$this->connectionName}.charset", 'utf8mb4' );
 
         $query = "LOAD DATA LOCAL INFILE '" . $localFilePath . "'
-    INTO TABLE " . InsertGeonames::TABLE . "
+    INTO TABLE " . InsertGeonames::TABLE . " CHARACTER SET '{$charset}'
         (geonameid, 
              name, 
              asciiname, 

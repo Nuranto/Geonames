@@ -10,25 +10,39 @@ class RepositoryTest extends AbstractGlobalTestCase {
 
     public function setUp(): void {
         parent::setUp();
-        $this->artisan( 'migrate', [ '--database' => $this->DB_CONNECTION, ] );
-        $this->artisan( 'geonames:install', [
-            '--test'       => TRUE,
-            '--connection' => $this->DB_CONNECTION,
+
+        echo "\nRunning setUp() in RepositoryTest...\n";
+
+//        $this->artisan( 'migrate', [ '--database' => $this->DB_CONNECTION, ] );
+//        $this->artisan( 'geonames:install', [
+//            '--test'       => TRUE,
+//            '--connection' => $this->DB_CONNECTION,
+//        ] );
+        echo "\nDone running setUp() in RepositoryTest.\n";
+    }
+
+    protected function getEnvironmentSetUp( $app ) {
+        // Setup default database to use sqlite :memory:
+        $app[ 'config' ]->set( 'database.default', 'testbench' );
+        $app[ 'config' ]->set( 'database.connections.testbench', [
+            'driver'   => 'sqlite',
+            'database' => './tests/files/database.sqlite',
+            'prefix'   => '',
         ] );
     }
 
 
     /**
      * @test
-     * @group only
+     * @group repo
      */
     public function theOnlyTest() {
-//        $this->isoLanguageCode();
-//        $this->featureClass();
-//        $this->getStorageDirFromDatabase();
-//        $this->admin1Code();
-//        $this->admin2Code();
-//        $this->alternateName();
+        $this->isoLanguageCode();
+        $this->featureClass();
+        $this->getStorageDirFromDatabase();
+        $this->admin1Code();
+        $this->admin2Code();
+        $this->alternateName();
         $this->geoname();
     }
 
@@ -55,7 +69,6 @@ class RepositoryTest extends AbstractGlobalTestCase {
         } catch ( \Exception $exception ) {
             $this->assertInstanceOf( \Illuminate\Database\Eloquent\ModelNotFoundException::class, $exception );
         }
-
     }
 
     /**
@@ -63,7 +76,7 @@ class RepositoryTest extends AbstractGlobalTestCase {
      */
     protected function admin2Code() {
         $repo       = new \MichaelDrennen\Geonames\Repositories\Admin2CodeRepository();
-        $admin2Code = $repo->getByCompositeKey( 'AF', '08', 619 );
+        $admin2Code = $repo->getByCompositeKey( 'AF', '08', 609 );
         $this->assertInstanceOf( \MichaelDrennen\Geonames\Models\Admin2Code::class, $admin2Code );
 
         try {
@@ -116,9 +129,6 @@ class RepositoryTest extends AbstractGlobalTestCase {
     }
 
 
-    /**
-     *
-     */
     protected function isoLanguageCode() {
         $repo             = new \MichaelDrennen\Geonames\Repositories\IsoLanguageCodeRepository();
         $isoLanguageCodes = $repo->all();
@@ -134,34 +144,29 @@ class RepositoryTest extends AbstractGlobalTestCase {
     protected function geoname() {
         $repo = new \MichaelDrennen\Geonames\Repositories\GeonameRepository();
 
-        $geonames = $repo->getPlacesStartingWithTerm( "Gig" );
-
-        $this->assertInstanceOf( \Illuminate\Support\Collection::class, $geonames );
-
-        // TODO Check the test install records to make sure I can get one with the above string.
-        //$this->assertGreaterThan( 0, $geonames->count() );
-        //$this->assertInstanceOf( \MichaelDrennen\Geonames\Models\Geoname::class, $geonames->first() );
-
-
-        $geonames = $repo->getCitiesFromCountryStartingWithTerm( 'BS', "na" );
+        $geonames = $repo->getCitiesNotFromCountryStartingWithTerm( 'US', "ka" );
         $this->assertInstanceOf( \Illuminate\Support\Collection::class, $geonames );
         $this->assertGreaterThan( 0, $geonames->count() );
         $this->assertInstanceOf( \MichaelDrennen\Geonames\Models\Geoname::class, $geonames->first() );
 
 
-        $geonames = $repo->getCitiesNotFromCountryStartingWithTerm( 'US', "Na" );
+        $geonames = $repo->getSchoolsFromCountryStartingWithTerm( 'UZ', "uc" );
         $this->assertInstanceOf( \Illuminate\Support\Collection::class, $geonames );
         $this->assertGreaterThan( 0, $geonames->count() );
         $this->assertInstanceOf( \MichaelDrennen\Geonames\Models\Geoname::class, $geonames->first() );
 
-        $geonames = $repo->getSchoolsFromCountryStartingWithTerm( 'UZ', "Kir" );
+
+        $geonames = $repo->getCitiesFromCountryStartingWithTerm( 'UZ', 'ja' );
+        $this->assertInstanceOf( \Illuminate\Support\Collection::class, $geonames );
+        $this->assertGreaterThan( 0, $geonames->count() );
+        $this->assertInstanceOf( \MichaelDrennen\Geonames\Models\Geoname::class, $geonames->first() );
+
+        $geonames = $repo->getPlacesStartingWithTerm( 'Ur' );
         $this->assertInstanceOf( \Illuminate\Support\Collection::class, $geonames );
         $this->assertGreaterThan( 0, $geonames->count() );
         $this->assertInstanceOf( \MichaelDrennen\Geonames\Models\Geoname::class, $geonames->first() );
 
     }
-
-
 
 
 
