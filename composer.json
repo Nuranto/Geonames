@@ -10,7 +10,7 @@
     }
   ],
   "require": {
-    "php": "^7.0 || ^8.0 || ^8.1",
+    "php": "^8.1 || ^8.2",
     "ext-intl": "*",
     "ext-pdo": "*",
     "ext-curl": "*",
@@ -18,7 +18,8 @@
     "michaeldrennen/remote-file": "^2.0",
     "michaeldrennen/local-file": "^2.0",
     "curl/curl": "^2.2",
-    "fabpot/goutte": "^4.0",
+    "symfony/browser-kit": "^6.0 || ^7.0",
+    "symfony/http-client": "^6.0 || ^7.0",
     "nesbot/carbon": "^2.28",
     "illuminate/support": "^10.0 || ^11.0 || ^12.0",
     "illuminate/routing": "^10.0 || ^11.0 || ^12.0",
