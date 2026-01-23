@@ -33,26 +33,22 @@ class Geoname extends Model {
     //protected $dateFormat = 'Y-m-d';
 
     /**
-     * @var array
-     */
-    protected $dates = ['modification_date'];
-
-    /**
      * The attributes that should be casted to native types.
      *
      * @var array
      */
-    protected $casts = ['population' => 'integer',
-                        'dem'        => 'integer',
-                        'latitude'   => 'double',
-                        'longitude'  => 'double',];
+    protected $casts = ['population'        => 'integer',
+                        'dem'               => 'integer',
+                        'latitude'          => 'double',
+                        'longitude'         => 'double',
+                        'modification_date' => 'date',];
 
     /**
      * The event map for the model.
      *
      * @var array
      */
-    protected $events = ['updated' => GeonameUpdated::class];
+    protected $dispatchesEvents = ['updated' => GeonameUpdated::class];
 
     /**
      * Not all countries use the admin2_code values. The admin2_code references another table of what we call

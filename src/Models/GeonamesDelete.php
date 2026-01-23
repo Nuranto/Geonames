@@ -34,7 +34,7 @@ class GeonamesDelete extends Model {
      *
      * @var array
      */
-    protected $events = [ 'deleted' => GeonameDeleted::class ];
+    protected $dispatchesEvents = [ 'deleted' => GeonameDeleted::class ];
 
 
 }

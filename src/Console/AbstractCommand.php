@@ -5,7 +5,7 @@ namespace MichaelDrennen\Geonames\Console;
 use Illuminate\Console\Command;
 
 abstract class AbstractCommand extends Command {
-    const SUCCESS_EXIT = 1;
+    const SUCCESS_EXIT = 0;
 
 
     protected function fixDirectorySeparatorForWindows( string $path ): string {
