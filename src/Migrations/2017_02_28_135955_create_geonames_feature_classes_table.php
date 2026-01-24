@@ -5,12 +5,12 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 
-class CreateGeonamesFeatureClassesTable extends Migration {
+return new class extends Migration {
     /**
      * This small table is filled with static data from geonames.org.
      * @throws \Exception
      */
-    public function up() {
+    public function up(): void {
         Schema::create( 'geonames_feature_classes', function ( Blueprint $table ) {
             $table->engine = 'MyISAM';
             $table->char('id', 1);
@@ -21,10 +21,8 @@ class CreateGeonamesFeatureClassesTable extends Migration {
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down() {
+    public function down(): void {
         Schema::dropIfExists( 'geonames_feature_classes' );
     }
-}
+};

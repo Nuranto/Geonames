@@ -5,19 +5,16 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 /**
- * Class CreateGeoLogsTable
  * Create a table for us to log the activity of our Geonames package.
  * For instance, if there is an error downloading an update file from the
  * geonames.org website it would be nice to have a record of that for debugging
  * purposes.
  */
-class CreateGeonamesLogsTable extends Migration {
+return new class extends Migration {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up() {
+    public function up(): void {
         Schema::create( 'geonames_logs', function ( Blueprint $table ) {
             $table->engine = 'MyISAM';
             $table->increments('id');
@@ -31,10 +28,8 @@ class CreateGeonamesLogsTable extends Migration {
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down() {
+    public function down(): void {
         Schema::dropIfExists( 'geonames_logs' );
     }
-}
+};

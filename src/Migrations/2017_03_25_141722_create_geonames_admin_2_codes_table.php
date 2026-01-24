@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGeonamesAdmin2CodesTable extends Migration {
+return new class extends Migration {
 
     const TABLE = 'geonames_admin_2_codes';
 
@@ -13,10 +13,8 @@ class CreateGeonamesAdmin2CodesTable extends Migration {
      * Source of data: http://download.geonames.org/export/dump/admin2Codes.txt
      * Sample data:
      * US.CO.107    Routt County    Routt County    5581553
-     *
-     * @return void
      */
-    public function up() {
+    public function up(): void {
         // Format : concatenated codes <tab>name <tab> asciiname <tab> geonameId
         Schema::create( self::TABLE, function ( Blueprint $table ) {
             $table->engine = 'MyISAM';
@@ -37,10 +35,8 @@ class CreateGeonamesAdmin2CodesTable extends Migration {
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down() {
+    public function down(): void {
         Schema::dropIfExists( self::TABLE );
     }
-}
+};

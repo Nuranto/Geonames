@@ -4,13 +4,11 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGeonamesIsoLanguageCodesTable extends Migration {
+return new class extends Migration {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up () {
+    public function up(): void {
         /**
          * ISO 639-3    ISO 639-2    ISO 639-1    Language Name
          */
@@ -27,10 +25,8 @@ class CreateGeonamesIsoLanguageCodesTable extends Migration {
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down () {
+    public function down(): void {
         Schema::dropIfExists( 'geonames_iso_language_codes' );
     }
-}
+};

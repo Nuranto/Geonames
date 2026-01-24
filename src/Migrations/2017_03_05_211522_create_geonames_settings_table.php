@@ -5,17 +5,15 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use MichaelDrennen\Geonames\Models\GeoSetting;
 
-class CreateGeonamesSettingsTable extends Migration {
+return new class extends Migration {
 
     const TABLE_NAME = 'geonames_settings';
 
 
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up() {
+    public function up(): void {
         Schema::create( self::TABLE_NAME, function ( Blueprint $table ) {
             $table->engine = 'MyISAM';
             // We should only ever have one record in this table.
@@ -53,10 +51,8 @@ class CreateGeonamesSettingsTable extends Migration {
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down() {
+    public function down(): void {
         Schema::dropIfExists( self::TABLE_NAME );
     }
-}
+};

@@ -4,13 +4,11 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGeonamesDeletesTable extends Migration {
+return new class extends Migration {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up() {
+    public function up(): void {
         Schema::create( 'geonames_deletes', function ( Blueprint $table ) {
             $table->engine = 'MyISAM';
             $table->increments( 'id' );       // Primary key of this table. Possible that we could use geonameid. Can a record be added after it's deleted?
@@ -33,10 +31,8 @@ class CreateGeonamesDeletesTable extends Migration {
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down() {
+    public function down(): void {
         Schema::dropIfExists( 'geonames_deletes' );
     }
-}
+};

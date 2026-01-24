@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGeonamesPostalCodesTable extends Migration {
+return new class extends Migration {
 
     const TABLE = 'geonames_postal_codes';
 
@@ -13,10 +13,8 @@ class CreateGeonamesPostalCodesTable extends Migration {
      * Source of data: http://download.geonames.org/export/zip/allCountries.zip
      * Sample data:
      * US	99553	Akutan	Alaska	AK	Aleutians East	013			54.143	-165.7854	1
-     *
-     * @return void
      */
-    public function up() {
+    public function up(): void {
         Schema::create( self::TABLE, function ( Blueprint $table ) {
             $table->engine = 'MyISAM';
             $table->increments('id');
@@ -41,10 +39,8 @@ class CreateGeonamesPostalCodesTable extends Migration {
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down() {
+    public function down(): void {
         Schema::dropIfExists( self::TABLE );
     }
-}
+};

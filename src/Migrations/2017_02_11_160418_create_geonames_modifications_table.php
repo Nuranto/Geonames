@@ -4,13 +4,11 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGeonamesModificationsTable extends Migration {
+return new class extends Migration {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up() {
+    public function up(): void {
         Schema::create( 'geonames_modifications', function ( Blueprint $table ) {
             $table->engine = 'MyISAM';
             $table->increments('id');                   // Primary key of this table. Can't be geonameid, as a location can have n modifications.
@@ -40,10 +38,8 @@ class CreateGeonamesModificationsTable extends Migration {
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down() {
+    public function down(): void {
         Schema::dropIfExists( 'geonames_modifications' );
     }
-}
+};

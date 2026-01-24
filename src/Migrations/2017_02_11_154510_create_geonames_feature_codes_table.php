@@ -4,13 +4,11 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGeonamesFeatureCodesTable extends Migration {
+return new class extends Migration {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up() {
+    public function up(): void {
         Schema::create( 'geonames_feature_codes', function ( Blueprint $table ) {
             $table->engine = 'MyISAM';
             $table->increments('id');
@@ -29,10 +27,8 @@ class CreateGeonamesFeatureCodesTable extends Migration {
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down() {
+    public function down(): void {
         Schema::dropIfExists( 'geonames_feature_codes' );
     }
-}
+};
