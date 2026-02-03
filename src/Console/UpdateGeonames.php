@@ -7,7 +7,6 @@ use Illuminate\Console\Command;
 use Carbon\Carbon;
 use Symfony\Component\DomCrawler\Crawler;
 use Curl\Curl;
-use Symfony\Component\BrowserKit\HttpBrowser;
 use StdClass;
 use MichaelDrennen\Geonames\Models\GeonamesDelete;
 use MichaelDrennen\Geonames\Models\Geoname;
@@ -55,11 +54,6 @@ class UpdateGeonames extends AbstractCommand {
     protected $curl;
 
     /**
-     * @var HttpBrowser
-     */
-    protected $client;
-
-    /**
      * @var string
      */
     protected $urlForDownloadList = 'http://download.geonames.org/export/dump/';
@@ -91,15 +85,12 @@ class UpdateGeonames extends AbstractCommand {
      * UpdateGeonames constructor.
      *
      * @param \Curl\Curl $curl
-     * @param \Symfony\Component\BrowserKit\HttpBrowser $client
      *
      * @throws \Exception
      */
-    public function __construct( Curl $curl, HttpBrowser $client ) {
+    public function __construct( Curl $curl ) {
         parent::__construct();
-        $this->curl   = $curl;
-        $this->client = $client;
-
+        $this->curl = $curl;
     }
 
 
@@ -342,7 +333,10 @@ class UpdateGeonames extends AbstractCommand {
      * @return array
      */
     protected function getAllLinksOnDownloadPage(): array {
-        $crawler = $this->client->request( 'GET', $this->urlForDownloadList );
+        $this->curl->get( $this->urlForDownloadList );
+        $html = $this->curl->response;
+
+        $crawler = new Crawler( $html );
 
         return $crawler->filter( 'a' )->each( function ( Crawler $node ) {
             return $node->attr( 'href' );
