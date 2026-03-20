@@ -112,7 +112,7 @@ class UpdateGeonames extends AbstractCommand {
         } catch ( \Exception $exception ) {
             $this->error( $exception->getMessage() );
             $this->stopTimer();
-            return FALSE;
+            return 1;
         }
 
         GeoSetting::init( [ GeoSetting::DEFAULT_COUNTRIES_TO_BE_ADDED ],
@@ -218,7 +218,7 @@ class UpdateGeonames extends AbstractCommand {
         $this->line( "\nFinished " . $this->signature );
         GeoSetting::setStatus( GeoSetting::STATUS_LIVE, $this->connectionName );
 
-        return TRUE;
+        return 0;
     }
 
 
