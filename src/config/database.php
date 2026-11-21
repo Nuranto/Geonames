@@ -46,10 +46,10 @@ return [
             'prefix'      => '',
             'strict'      => TRUE,
             'engine'      => NULL,
-            //'options'     => [ \PDO::MYSQL_ATTR_LOCAL_INFILE => TRUE, ],
+            //'options'     => [ \Pdo\Mysql::ATTR_LOCAL_INFILE => TRUE, ],
             'options'     => extension_loaded( 'pdo_mysql' ) ? array_filter( [
-                                                                                 PDO::MYSQL_ATTR_SSL_CA       => env( 'MYSQL_ATTR_SSL_CA' ),
-                                                                                 PDO::MYSQL_ATTR_LOCAL_INFILE => TRUE,
+                                                                                 Pdo\Mysql::ATTR_SSL_CA       => env( 'MYSQL_ATTR_SSL_CA' ),
+                                                                                 Pdo\Mysql::ATTR_LOCAL_INFILE => TRUE,
                                                                              ] ) : [],
         ],
     ],

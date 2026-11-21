@@ -69,7 +69,7 @@ class FeatureCodeSeeder extends Seeder {
     protected function fileToArray($localFilePath) {
         $rows = [];
         if (($handle = fopen($localFilePath, "r")) !== false) {
-            while (($data = fgetcsv($handle, 0, "\t")) !== false) {
+            while (($data = fgetcsv( $handle, 0, "\t", escape: "\\" )) !== false) {
                 $rows[] = $data;
             }
             fclose($handle);

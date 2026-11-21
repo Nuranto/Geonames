@@ -3,7 +3,6 @@
 namespace MichaelDrennen\Geonames\Tests;
 
 use Illuminate\Foundation\Application;
-use PDO;
 use Orchestra\Testbench\TestCase;
 use MichaelDrennen\Geonames\GeonamesServiceProvider;
 
@@ -26,7 +25,7 @@ abstract class AbstractGlobalTestCase extends TestCase {
             'driver'   => 'sqlite',
             'database' => ':memory:',
             'prefix'   => '',
-            'options'  => [ PDO::MYSQL_ATTR_LOCAL_INFILE => TRUE, ],
+            'options'  => [ \Pdo\Mysql::ATTR_LOCAL_INFILE => TRUE, ],
         ] );
         $app[ 'config' ]->set( 'debug.running_in_continuous_integration', $_ENV[ 'RUNNING_IN_CI' ] );
         echo "\nEnvironment set up complete.\n";

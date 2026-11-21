@@ -31,7 +31,7 @@ class Admin1CodeRepository {
         return $admin1CodeModel;
     }
 
-    public function all( int $limit = NULL ): Collection {
+    public function all( ?int $limit = NULL ): Collection {
         $query = Admin1Code::on( env( 'DB_GEONAMES_CONNECTION' ) );
         if ( $limit ):
             $query->limit( $limit );

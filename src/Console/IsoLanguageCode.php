@@ -177,7 +177,7 @@ class IsoLanguageCode extends AbstractCommand {
 
 
         $rows = [];
-        while ( ( $row = fgetcsv( $handle, 0, "\t" ) ) !== FALSE ):
+        while ( ( $row = fgetcsv( $handle, 0, "\t", escape: "\\" ) ) !== FALSE ):
             $rows[] = $row;
         endwhile;
         fclose( $handle );
@@ -202,7 +202,7 @@ class IsoLanguageCode extends AbstractCommand {
         endif;
 
         foreach ( $finalRows as $row ):
-            fputcsv( $handle, $row, "\t" );
+            fputcsv( $handle, $row, "\t", escape: "\\" );
         endforeach;
 
         fclose( $handle );
@@ -223,7 +223,7 @@ class IsoLanguageCode extends AbstractCommand {
 
         $rows = [];
         $file = fopen( $localFilePath, 'r' );
-        while ( ( $line = fgetcsv( $file, 0, "\t" ) ) !== FALSE ) {
+        while ( ( $line = fgetcsv( $file, 0, "\t", escape: "\\" ) ) !== FALSE ) {
             $modifiedLine = $this->formatLineForEloquent( $line );
             $rows[]       = $modifiedLine;
         }

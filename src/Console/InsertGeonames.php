@@ -425,7 +425,7 @@ SET created_at=NOW(),updated_at=null";
         $rows = [];
         $file = fopen( $localFilePath, 'r' );
 
-        while ( ( $line = fgetcsv( $file, 0, "\t" ) ) !== FALSE ) {
+        while ( ( $line = fgetcsv( $file, 0, "\t", escape: "\\" ) ) !== FALSE ) {
             $modifiedLine = $this->formatLineForEloquent( $line );
             $rows[]       = $modifiedLine;
         }
